@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- English Report Action -->
+    <record id="action_report_add_vihar_english" model="ir.actions.report">
+        <field name="name">Vihar Info (English)</field>
+        <field name="model">ai.add.vihar</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ai_vihar.report_add_vihar_english</field>
+        <field name="print_report_name">'Vihar_Info_EN_%s' % (object.letter_no or object.id)</field>
+    </record>
+
+    <!-- Gujarati Report Action -->
+    <record id="action_report_add_vihar_gujarati" model="ir.actions.report">
+        <field name="name">Vihar Info (Gujarati)</field>
+        <field name="model">ai.add.vihar</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ai_vihar.report_add_vihar_gujarati</field>
+        <field name="print_report_name">'Vihar_Info_GU_%s' % (object.letter_no or object.id)</field>
+    </record>
+
+    <!-- Hindi Report Action -->
+    <record id="action_report_add_vihar_hindi" model="ir.actions.report">
+        <field name="name">Vihar Info (Hindi)</field>
+        <field name="model">ai.add.vihar</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ai_vihar.report_add_vihar_hindi</field>
+        <field name="print_report_name">'Vihar_Info_HI_%s' % (object.letter_no or object.id)</field>
+    </record>
+
+</odoo>

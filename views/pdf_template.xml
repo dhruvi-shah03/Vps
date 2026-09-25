@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <!-- Gujarati Detail Template -->
+   <template id="report_add_vihar_gujarati">
+      <t t-call="web.html_container">
+         <t t-call="web.basic_layout">
+            <t t-set="lang" t-value="lang or 'gu_IN'"/>
+            <style>
+            body {
+               font-family: "Noto Serif Gujarati", serif !important;
+               font-size: 16px;
+               line-height: 1.5;
+            }
+
+            table, tr, td, th, span, div, p {
+               font-family: "Noto Serif Gujarati";
+            }
+
+            /* IMPORTANT: Avoid Gujarati breaking */
+            .indic {
+               unicode-bidi: embed;
+               word-break: keep-all;
+               white-space: normal;
+            }
+
+            /* HEADER */
+            .report-header {
+               display: table;
+               width: 100%;
+               border-bottom: 3px double #000;
+               padding-bottom: 5px;
+               margin-bottom: 8px;
+            }
+
+            .logo-cell {
+               display: table-cell;
+               vertical-align: middle;
+               width: 25%;
+            }
+
+            .logo-cell img {
+               height: 200px;
+               width: auto;
+            }
+
+            .header-content {
+               display: table-cell;
+               vertical-align: middle;
+               width: 75%;
+               text-align: left;
+               padding-left: 20px;
+            }
+
+            .title-line1 {
+               font-size: 36px;
+               color: #1a73e8;
+               font-weight: 900;
+               line-height: 1.1;
+               margin-bottom: 5px;
+            }
+
+            .header-details-row {
+               display: table;
+               width: 100%;
+               border-top: 1px solid #ddd;
+               padding-top: 5px;
+            }
+
+            .header-saheb-info {
+               display: table-cell;
+               font-size: 22px;
+               color: #03a9f4;
+               font-weight: bold;
+               text-align: left;
+               width: 70%;
+            }
+
+            .header-date-info {
+               display: table-cell;
+               font-size: 18px;
+               font-weight: bold;
+               text-align: right;
+               width: 30%;
+            }
+
+            /* TEXT */
+            .letter-no {
+               font-size: 16px;
+               color: #555;
+            }
+
+            .salutation {
+               font-size: 18px;
+               line-height: 1.3;
+               margin: 8px 0;
+               color: black;
+            }
+
+            .body-text {
+               font-size: 18px;
+               line-height: 1.5;
+            }
+
+            /* CONTACT BOX */
+            .contact-box {
+               background-color: #fff9c4;
+               border: 1px solid #fbc02d;
+               padding: 6px;
+               border-radius: 4px;
+               font-weight: bold;
+               font-size: 16px;
+            }
+
+            /* TABLE */
+            .table {
+               width: 100%;
+               font-size: 15px;
+               border-collapse: collapse;
+               border: 1px solid #000;
+            }
+
+            .table th, .table td {
+               border: 1px solid #000 !important;
+               padding: 4px;
+               vertical-align: middle;
+            }
+
+            .table th {
+               background-color: #f8f9fa !important;
+               font-weight: bold;
+            }
+
+            /* EMERGENCY */
+            .emergency {
+               font-size: 18px;
+               color: #d32f2f;
+               font-weight: bold;
+               border-top: 1px solid #eee;
+               padding-top: 10px;
+            }
+
+            /* SIGNATURE */
+            .vps-signature {
+               width: 100%;
+               text-align: right;
+               font-size: 20px;
+               margin-top: 30px;
+            }
+
+            /* HIGHLIGHTS */
+            .highlight-name {
+               color: #03a9f4;
+               font-weight: bold;
+            }
+
+            .highlight-thana {
+               font-size: 20px;
+               font-weight: bold;
+            }
+
+            /* PAGE */
+            .page {
+               margin-top: -30px !important;
+               position: relative;
+            }
+
+            /* WATERMARK */
+            .page-bg {
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+               pointer-events: none;
+               z-index: 0;
+            }
+
+            .page-bg img {
+               position: absolute;
+               top: 50%;
+               left: 50%;
+               width: 800px;
+               height: 800px;
+               margin-top: -100px;
+               margin-left: -400px;
+               opacity: 0.35;
+               z-index: -1000;
+               pointer-events: none;
+            }
+
+            </style>
+            
+            <t t-foreach="docs" t-as="o" t-index="doc_idx">
+               <div class="position-relative" style="padding: 5px 10px; margin: 0; min-height: 270mm; position: relative;">
+                  <div class="page-bg">
+                     <img src="/ai_vihar/static/src/img/vihar_watermark.png" alt=""/>
+                  </div>
+                  <!-- ==== HEADER ==== -->
+                  <!-- ==== HEADER ==== -->
+                  <div class="report-header">
+                     <div class="logo-cell">
+                        <img src="/ai_vihar/static/src/img/vihar_watermark.png"
+                           onerror="this.src='/ai_vihar/static/description/icon.png'"
+                           alt="VPS Logo"/>
+                     </div>
+                     <div class="header-content">
+                        <div class="title-line1">VIHAR POLICE SURAKSHA</div>
+                        <div class="header-details-row">
+                           <div class="header-saheb-info">
+                                 <t t-esc="o.code.code"/> - <t t-esc="o.code.name_gu"/>
+                           </div>
+                           <div class="header-date-info">
+                              તારીખ : <span t-esc="o.selected_date_display or ''"/>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <hr style="border-top: 1px solid #000; margin: 1px 0;"/>
+                  <hr style="border-top: 1px solid #000; margin: 1px 0;"/>
+
+                  <!-- ==== CONTENT ==== -->
+                  <div class="content mt-1">
+                     <p class="letter-no">
+                        (પત્ર ક્રમાંક: <t t-esc="o.letter_no"/>)
+                     </p>
+                     
+                     <!-- Salutations -->
+                     <div class="salutation mb-3">
+                       <t t-set="all_salutations" t-value="get_sorted_salutations(o)"/>
+                       <t t-foreach="all_salutations" t-as="salutation">
+                           <div class="fw-bold"><t t-esc="get_cleaned_salutation_name(salutation, 'gu')"/></div>
+                       </t>
+                     </div>
+
+                     <p class="body-text text-justify" style="text-indent: 50px;">
+                        જય ભારત સાથે જણાવવાનું કે અમારા <strong><span class="highlight-name"><t t-esc="get_formatted_mahatma_name(o, 'gu')"/></span></strong> 
+                        <span class="highlight-thana">થાણા સંખ્યા: <t t-esc="o.thana_no or '1'"/></span>, 
+                        <strong>
+                           <t t-if="o.vihar_id">
+                              <t t-esc="o.vihar_id[0].from_location_id.name_gu"/> થી <t t-esc="o.vihar_id[-1].to_location_id.name_gu"/>
+                           </t>
+                        </strong> 
+                        તરફ વિહાર યાત્રા કરી રહ્યા છે. વિહાર (પદ) યાત્રા દરમિયાન સુરક્ષા આપવા વિનંતી.
+                     </p>
+
+                     <div class="contact-box my-1 p-2 border border-dark" style="background-color: #ffff99;">
+                        સંતનો સ્થાનિક સંપર્ક વ્યક્તિ: <strong><t t-esc="o.sevak_name"/></strong> - 
+                        <a t-att-href="'tel:' + (o.contact_number or '')"><t t-esc="o.contact_number"/></a>
+                     </div>
+
+                     <!-- Bootstrap Table -->
+                     <table class="table table-bordered table-sm align-middle text-center mt-1 border-dark">
+                         <thead class="table-light border-dark">
+                             <tr>
+                                 <th style="width: 15%;">તારીખ</th>
+                                 <th style="width: 40%;">વિહાર માર્ગ</th>
+                                 <th style="width: 15%;">સમય</th>
+                                 <th style="width: 30%;">જિલ્લા ઇન્ચાર્જ</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <t t-foreach="get_sorted_routes(o)" t-as="entry">
+                                 <tr class="border-dark">
+                                     <td><t t-esc="entry.vihar_date_display or '-'"/></td>
+                                     <td class="text-start ps-2">
+                                         <t t-esc="entry.from_location_id.name_gu"/> 
+                                         <t t-if="entry.from_location_id.district_id"> (<t t-esc="entry.from_location_id.district_id.name_gu"/>)</t>
+                                         <t t-if="entry.name_gu"> <t t-esc="entry.name_gu"/> </t>
+                                         <t t-else=""> થી </t>
+                                         <t t-esc="entry.to_location_id.name_gu"/>
+                                         <t t-if="entry.to_location_id.district_id"> (<t t-esc="entry.to_location_id.district_id.name_gu"/>)</t>
+                                     </td>
+                                     <td><t t-esc="entry.vihar_time_ist or '-'"/></td>
+                                     <td class="text-start ps-2 district-incharge-gu">
+                                         <t t-esc="entry.district_incharge_info_gu or '-'"/>
+                                     </td>
+                                 </tr>
+                             </t>
+                         </tbody>
+                     </table>
+
+                     <p class="emergency mt-1" style="font-size: 28px;">
+                        ઈમરજન્સી સંપર્ક: 
+                        <strong><a href="tel:7434880887">7434880887</a>, <a href="tel:7434881887">7434881887</a>.</strong>
+                     </p>
+                  </div>
+                  
+                  <div class="vps-signature">
+                     <p class="mb-0"><strong>લી</strong></p>
+                     <p class="mb-0"><strong>Team VPS</strong></p>
+                  </div>
+               </div>
+            </t>
+         </t>
+      </t>
+   </template>
+
+   <!-- English Detail Template -->
+   <template id="report_add_vihar_english">
+      <t t-call="web.html_container">
+         <t t-call="web.basic_layout">
+            <t t-set="lang" t-value="lang or 'en_US'"/>
+            <style>
+               @font-face {
+                  font-family: 'Noto Sans Gujarati';
+                  src: url('/ai_vihar/static/fonts/NotoSansGujarati.ttf') format('truetype');
+                  font-weight: normal;
+                  font-style: normal;
+               }
+               
+               /* Correct fallback priority for English report: Use Gujarati font for Indic characters */
+               body { 
+                  font-family: 'Arial', 'Noto Sans Gujarati', serif !important; 
+                  font-size: 16px; color: #333; line-height: 1.4; text-rendering: optimizeLegibility; 
+               }
+               body.gujarati * { font-family: 'Noto Sans Gujarati' !important; }
+               .report-header { display: table; width: 100%; border-bottom: 3px double #000; padding-bottom: 5px; margin-bottom: 8px; }
+               .logo-cell { display: table-cell; vertical-align: middle; width: 25%; }
+               .logo-cell img { height: 200px; width: auto; opacity: 1 !important; }
+               .header-content { display: table-cell; vertical-align: middle; width: 75%; text-align: left; padding-left: 20px; }
+               .title-line1 { font-size: 36px; color: #1a73e8; font-weight: 900; line-height: 1.1; text-transform: uppercase; margin-bottom: 5px; }
+               .header-details-row { display: table; width: 100%; border-top: 1px solid #ddd; padding-top: 5px; }
+               .header-saheb-info { display: table-cell; font-size: 22px; color: #03a9f4; font-weight: bold; text-align: left; width: 70%; vertical-align: middle; }
+               .header-date-info { display: table-cell; font-size: 18px; font-weight: bold; text-align: right; width: 30%; vertical-align: middle; }
+               
+               .letter-no { font-size: 16px; color: #555; }
+               .salutation { font-size: 18px; line-height: 1.3; margin: 8px 0; color: black; }
+               .body-text { font-size: 18px; line-height: 1.5; margin-bottom: 5px; }
+               .contact-box { background-color: #fff9c4; border: 1px solid #fbc02d; padding: 6px; border-radius: 4px; font-weight: bold; font-size: 16px; }
+               
+               .table { width: 100%; font-size: 15px; border-collapse: collapse; border: 1px solid #000; }
+               .table th, .table td { border: 1px solid #000 !important; padding: 4px; vertical-align: middle; }
+               .table th { background-color: #f8f9fa !important; font-weight: bold; text-transform: uppercase; }
+               
+               .emergency { font-size: 20px; color: #d32f2f; font-weight: bold; border-top: 1px solid #eee; padding-top: 10px; }
+               .vps-signature { width: 100%; text-align: right; font-size: 20px; margin-top: 30px; }
+               .highlight-name { color: #03a9f4; font-weight: bold; }
+               .highlight-thana { font-size: 20px; font-weight: bold; }
+               
+               /* No margin-top in .page or body */
+               .page { margin-top: -30px !important; position: relative;}
+               /* .page-bg { position: fixed; ... } */
+               .page-bg {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: 1;
+               }
+               /* Watermark positioning - centered at page center */
+               .page-bg img {
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  width: 800px;
+                  height: 800px;
+                  margin-top: -100px;
+                  margin-left: -400px;
+                  opacity: 0.35;
+                  z-index: -1000;
+                  pointer-events: none;
+               }
+
+            </style>
+            <t t-foreach="docs" t-as="o" t-index="doc_idx">
+               <!-- <div class="position-relative" style="padding: 5px 10px; margin: 0; min-height: 270mm; position: relative;"> -->
+               <div class="page">
+                  <div class="page-bg">
+                     <img src="/ai_vihar/static/src/img/vihar_watermark.png" alt=""/>
+                  </div>
+                  <!-- ==== HEADER ==== -->
+                  <!-- ==== HEADER ==== -->
+                  <div class="report-header">
+                     <div class="logo-cell">
+                        <img src="/ai_vihar/static/src/img/vihar_watermark.png"
+                           onerror="this.src='/ai_vihar/static/description/icon.png'"
+                           alt="VPS Logo"/>
+                     </div>
+                     <div class="header-content">
+                        <div class="title-line1">VIHAR POLICE SURAKSHA</div>
+                        <div class="header-details-row">
+                           <div class="header-saheb-info">
+                              <t t-esc="o.code.code"/> - <t t-esc="o.code.name_en"/>
+                           </div>
+                           <div class="header-date-info">
+                              Date : <span t-esc="o.selected_date_display or ''"/>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <hr style="border-top: 1px solid #000; margin: 1px 0;"/>
+                  <hr style="border-top: 1px solid #000; margin: 1px 0;"/>
+
+                  <!-- ==== CONTENT ==== -->
+                  <div class="content mt-1">
+                     <p class="letter-no">
+                        (Letter No: <t t-esc="o.letter_no"/>)
+                     </p>
+                     
+                     <!-- Salutations -->
+                     <div class="salutation mb-3">
+                       <t t-set="all_salutations" t-value="get_sorted_salutations(o)"/>
+                       <t t-foreach="all_salutations" t-as="salutation">
+                           <div class="fw-bold"><t t-esc="get_cleaned_salutation_name(salutation, 'en')"/></div>
+                       </t>
+                     </div>
+
+                     <p class="body-text text-justify" style="text-indent: 50px;">
+                        <strong>JAI HIND, JAI BHARAT.</strong><br/><br/>
+                        We kindly inform you that our <strong><span class="highlight-name"><t t-esc="get_formatted_mahatma_name(o, 'en')"/></span></strong> 
+                        <span class="highlight-thana">No. of Thanas: <t t-esc="o.thana_no or '1'"/></span>,
+                        on today's date <strong><t t-esc="o.selected_date.strftime('%d/%m/%Y')"/></strong> is 
+                        undertaking a Vihar (Padayatra) from 
+                        <strong>
+                           <t t-if="o.vihar_id">
+                              <t t-esc="o.vihar_id[0].from_location_id.name_en"/> to <t t-esc="o.vihar_id[-1].to_location_id.name_en"/>
+                           </t>
+                        </strong> 
+                        today.
+                        We express our sincere gratitude to the government and police authorities for their continuous support in ensuring the safety of our Jain saints during their journey.
+                        We humbly request you to kindly provide necessary police protection during this Vihar (Padayatra).
+                     </p>
+
+                     <div class="contact-box my-1 p-2 border border-dark" style="background-color: #ffff99;">
+                        Local Contact Person for Saint: <strong><t t-esc="o.sevak_name"/></strong> - 
+                        <a t-att-href="'tel:' + (o.contact_number or '')"><t t-esc="o.contact_number"/></a>
+                     </div>
+
+                     <!-- Bootstrap Table -->
+                     <table class="table table-bordered table-sm align-middle text-center mt-1 border-dark">
+                         <thead class="table-light border-dark">
+                             <tr>
+                                 <th style="width: 15%;">Date</th>
+                                 <th style="width: 40%;">Vihar Route</th>
+                                 <th style="width: 15%;">Time</th>
+                                 <th style="width: 30%;">District Incharge</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <t t-foreach="get_sorted_routes(o)" t-as="entry">
+                                 <tr class="border-dark">
+                                     <td><t t-esc="entry.vihar_date_display or '-'"/></td>
+                                     <td class="text-start ps-2">
+                                         <t t-esc="entry.from_location_id.name_en"/> 
+                                         <t t-if="entry.from_location_id.district_id"> (<t t-esc="entry.from_location_id.district_id.name_en"/>)</t>
+                                         <t t-if="entry.name_en"> <t t-esc="entry.name_en"/> </t>
+                                         <t t-else=""> to </t>
+                                         <t t-esc="entry.to_location_id.name_en"/>
+                                         <t t-if="entry.to_location_id.district_id"> (<t t-esc="entry.to_location_id.district_id.name_en"/>)</t>
+                                     </td>
+                                     <td><t t-esc="entry.vihar_time_ist or '-'"/></td>
+                                     <td class="text-start ps-2" style="font-size: 16px;">
+                                         <t t-esc="entry.district_incharge_info_en or '-'"/>
+                                     </td>
+                                 </tr>
+                             </t>
+                         </tbody>
+                     </table>
+
+                     <p class="emergency mt-1" style="font-size: 18px;">
+                        Emergency Contact: 
+                        <strong><a href="tel:7434880887">7434880887</a>, <a href="tel:7434881887">7434881887</a>.</strong>
+                     </p>
+                  </div>
+                  
+                  <div class="vps-signature">
+                     <p class="mb-0"><strong>Regards,</strong></p>
+                     <p class="mb-0"><strong>Team VPS</strong></p>
+                  </div>
+               </div>
+            </t>
+         </t>
+      </t>
+   </template>
+
+   <!-- Hindi Detail Template -->
+   <template id="report_add_vihar_hindi">
+      <t t-call="web.html_container">
+         <t t-call="web.basic_layout">
+            <t t-set="lang" t-value="lang or 'hi_IN'"/>
+            <meta charset="UTF-8"/>
+            <style>
+
+               html,
+               body,
+               div,
+               span,
+               p,
+               td,
+               th,
+               table,
+               tr {
+                  font-family: 'Noto Sans Devanagari' !important;
+               }
+
+
+               body {
+                  font-size: 16px;
+                  color: #333;
+                  line-height: 1.4;
+               }
+
+               .report-header {
+                  display: table;
+                  width: 100%;
+                  border-bottom: 3px double #000;
+                  padding-bottom: 5px;
+                  margin-bottom: 8px;
+               }
+
+               .logo-cell {
+                  display: table-cell;
+                  vertical-align: middle;
+                  width: 20%;
+               }
+
+               .logo-cell img {
+                  height: 200px;
+                  width: auto;
+                  opacity: 1 !important;
+               }
+
+               .header-content {
+                  display: table-cell;
+                  vertical-align: middle;
+                  width: 75%;
+                  text-align: left;
+                  padding-left: 20px;
+               }
+
+               .title-line1 {
+                  font-size: 36px;
+                  color: #1a73e8;
+                  font-weight: 900;
+                  line-height: 1.1;
+                  text-transform: uppercase;
+                  margin-bottom: 5px;
+               }
+
+               .header-details-row {
+                  display: table;
+                  width: 100%;
+                  border-top: 1px solid #ddd;
+                  padding-top: 5px;
+               }
+
+               .header-saheb-info {
+                  display: table-cell;
+                  font-size: 22px;
+                  color: #03a9f4;
+                  font-weight: bold;
+                  text-align: left;
+                  width: 70%;
+                  vertical-align: middle;
+               }
+
+               .header-date-info {
+                  display: table-cell;
+                  font-size: 18px;
+                  font-weight: bold;
+                  text-align: right;
+                  width: 30%;
+                  vertical-align: middle;
+               }
+
+               .letter-no {
+                  font-size: 16px;
+                  color: #555;
+               }
+
+               .salutation {
+                  font-size: 18px;
+                  line-height: 1.3;
+                  margin: 8px 0;
+                  color: black;
+               }
+
+               .body-text {
+                  font-size: 18px;
+                  line-height: 1.5;
+                  margin-bottom: 5px;
+               }
+
+               .contact-box {
+                  background-color: #fff9c4;
+                  border: 1px solid #fbc02d;
+                  padding: 6px;
+                  border-radius: 4px;
+                  font-weight: bold;
+                  font-size: 16px;
+               }
+
+               .table {
+                  width: 100%;
+                  font-size: 15px;
+                  border-collapse: collapse;
+                  border: 1px solid #000;
+               }
+
+               .table th,
+               .table td {
+                  border: 1px solid #000 !important;
+                  padding: 6px;
+                  vertical-align: middle;
+               }
+
+               .table th {
+                  background-color: #f8f9fa !important;
+                  font-weight: bold;
+               }
+
+               .emergency {
+                  font-size: 20px;
+                  color: #d32f2f;
+                  font-weight: bold;
+                  border-top: 1px solid #eee;
+                  padding-top: 10px;
+               }
+
+               .vps-signature {
+                  width: 100%;
+                  text-align: right;
+                  font-size: 20px;
+                  line-height: 1.2;
+                  margin-top: 30px;
+               }
+
+               .highlight-name {
+                  color: #1a73e8;
+                  font-weight: bold;
+               }
+
+               .highlight-thana {
+                  font-size: 20px;
+                  font-weight: bold;
+               }
+
+               .page {
+                  margin-top: -30px !important;
+                  position: relative;
+               }
+
+               .page-bg {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  pointer-events: none;
+                  z-index: 0;
+               }
+
+               .page-bg img {
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  width: 800px;
+                  height: 800px;
+                  margin-top: -100px;
+                  margin-left: -400px;
+                  opacity: 0.35;
+                  z-index: -1000;
+                  pointer-events: none;
+               }
+
+            </style>
+            <t t-foreach="docs" t-as="o" t-index="doc_idx">
+               <div class="page">
+                  <div class="page-bg">
+                     <img src="/ai_vihar/static/src/img/vihar_watermark.png" alt=""/>
+                  </div>
+                  <div class="report-header">
+                     <div class="logo-cell">
+                        <img src="/ai_vihar/static/src/img/vihar_watermark.png"
+                           onerror="this.src='/ai_vihar/static/description/icon.png'"
+                           alt="VPS Logo"/>
+                     </div>
+                     <div class="header-content">
+                        <div class="title-line1">VIHAR POLICE SURAKSHA</div>
+                        <div class="header-details-row">
+                           <div class="header-saheb-info">
+                              <t t-esc="o.code.code"/> - <t t-esc="o.code.name_hi"/>
+                           </div>
+                           <div class="header-date-info">
+                              दिनांक : <span t-esc="o.selected_date_display or ''"/>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <hr style="border-top: 1px solid #000; margin: 1px 0;"/>
+                  <hr style="border-top: 1px solid #000; margin: 1px 0;"/>
+
+                  
+                  <div class="content mt-1">
+                     <p class="letter-no">
+                        (पत्र क्रमांक: <t t-esc="o.letter_no"/>)
+                     </p>
+                     
+                     
+                     <div class="salutation mb-3">
+                       <t t-set="all_salutations" t-value="get_sorted_salutations(o)"/>
+                       <t t-foreach="all_salutations" t-as="salutation">
+                           <div class="fw-bold"><t t-esc="get_cleaned_salutation_name(salutation, 'hi')"/></div>
+                       </t>
+                     </div>
+
+                     <p class="body-text text-justify" style="text-indent: 50px;">
+                        <strong>जय हिंद, जय भारत।</strong><br/><br/>
+                        हम आपको सहर्ष सूचित करते हैं कि हमारे <strong><span class="highlight-name"><t t-esc="get_formatted_mahatma_name(o, 'hi')"/></span></strong> 
+                        <span class="highlight-thana">ठाणा संख्या: <t t-esc="o.thana_no or '1'"/></span>,
+                        आज दिनांक <strong><t t-esc="o.selected_date_display or ''"/></strong> को 
+                        <strong>
+                           <t t-if="o.vihar_id">
+                              <t t-esc="o.vihar_id[0].from_location_id.name_hi"/> से <t t-esc="o.vihar_id[-1].to_location_id.name_hi"/>
+                           </t>
+                        </strong> 
+                        की ओर विहार (पदयात्रा) कर रही हैं।
+                        हम सरकार और पुलिस अधिकारियों का हमारे जैन संतों की यात्रा के दौरान सुरक्षा सुनिश्चित करने के निरंतर समर्थन के लिए ईमानदारी से आभार व्यक्त करते हैं।
+                        हम आपसे विनम्रतापूर्वक इस विहार (पदयात्रा) के दौरान आवश्यक पुलिस सुरक्षा प्रदान करने का अनुरोध करते हैं।
+                     </p>
+
+                     <div class="contact-box my-1 p-2 border border-dark" style="background-color: #ffff99;">
+                        संत का स्थानीय संपर्क व्यक्ति: <strong><t t-esc="o.sevak_name"/></strong> - 
+                        <a t-att-href="'tel:' + (o.contact_number or '')"><t t-esc="o.contact_number"/></a>
+                     </div>
+
+                     
+                     <table class="table table-bordered table-sm align-middle text-center mt-1 border-dark">
+                         <thead class="table-light border-dark">
+                             <tr>
+                                 <th style="width: 15%;">दिनांक</th>
+                                 <th style="width: 40%;">विहार मार्ग</th>
+                                 <th style="width: 15%;">समय</th>
+                                 <th style="width: 30%;">जिला प्रभारी</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <t t-foreach="get_sorted_routes(o)" t-as="entry">
+                                 <tr class="border-dark">
+                                     <td><t t-esc="entry.vihar_date_display or '-'"/></td>
+                                     <td class="text-start ps-2">
+                                         <t t-esc="entry.from_location_id.name_hi"/> 
+                                         <t t-if="entry.from_location_id.district_id"> (<t t-esc="entry.from_location_id.district_id.name_hi"/>)</t>
+                                         <t t-if="entry.name_hi"> <t t-esc="entry.name_hi"/> </t>
+                                         <t t-else=""> से </t>
+                                         <t t-esc="entry.to_location_id.name_hi"/>
+                                         <t t-if="entry.to_location_id.district_id"> (<t t-esc="entry.to_location_id.district_id.name_hi"/>)</t>
+                                     </td>
+                                     <td><t t-esc="entry.vihar_time_ist or '-'"/></td>
+                                     <td class="text-start ps-2" style="font-size: 16px;">
+                                         <t t-esc="entry.district_incharge_info_hi or '-'"/>
+                                     </td>
+                                 </tr>
+                             </t>
+                         </tbody>
+                     </table>
+
+                     <p class="emergency mt-1" style="font-size: 18px;">
+                        आपातकालीन संपर्क: 
+                        <strong><a href="tel:7434880887">7434880887</a>, <a href="tel:7434881887">7434881887</a>.</strong>
+                     </p>
+                  </div>
+                  
+                  <div class="vps-signature">
+                     <p class="mb-0"><strong>सादर</strong></p>
+                     <p class="mb-0"><strong>Team VPS</strong></p>
+                  </div>
+               </div>
+            </t>
+         </t>
+      </t>
+   </template> 
+
+   
+
+   <!-- English Summary (Daily Route) Report -->
+   <template id="pdf_template_report_english">
+      <t t-call="web.html_container">
+         <t t-call="web.basic_layout">
+               <style>
+                  @font-face {
+                     font-family: 'Noto Sans Gujarati';
+                     src: url('/ai_vihar/static/fonts/NotoSansGujarati.ttf') format('truetype');
+                  }
+
+                  body { font-family: 'Arial', sans-serif; font-size: 13px; color: #333; line-height: 1.2; }
+                  
+                  /* Header Layout */
+                  .header-section { display: table; width: 100%; border-bottom: 3px double #000; padding-bottom: 5px; margin-bottom: 8px; }
+                  .logo-cell { display: table-cell; vertical-align: middle; width: 25%; }
+                  .logo-cell img { height: 200px; width: auto; opacity: 1 !important; }
+                  .header-content { display: table-cell; vertical-align: middle; width: 75%; text-align: left; padding-left: 20px; }
+                  .title-line1 { font-size: 36px; color: #1a73e8; font-weight: 900; margin: 0; }
+                  .header-date-row { display: table; width: 100%; border-top: 1px solid #ddd; padding-top: 5px; margin-top: 5px; }
+                  .header-date { display: table-cell; font-size: 20px; font-weight: bold; text-align: right; width: 100%; }
+                  
+                  .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                  .table th, .table td { border: 1px solid #000 !important; padding: 5px; vertical-align: middle; }
+                  .table th { background-color: #f1f1f1 !important; font-weight: bold; font-size: 15px; text-transform: uppercase; text-align: center; }
+                  .highlight-name { color: #03a9f4; font-weight: bold; }
+                  .vps-signature { position: absolute; bottom: 5mm; right: 10mm; width: 100%; text-align: right; font-size: 20px; line-height: 1.2; z-index: 1000; }
+                  
+                   .page-bg img {
+                  position: absolute; top: 50%; left: 50%; width: 800px; height: 800px;
+                  margin-top: -200px; margin-left: -400px; opacity: 0.35; z-index: -1000; pointer-events: none;
+               }
+               </style>
+
+               <t t-foreach="docs" t-as="o" t-index="doc_idx">
+                  <div class="position-relative" style="padding: 5px 10px; margin: 0; min-height: 270mm; position: relative;">
+                     <div class="page-bg">
+                           <img src="/ai_vihar/static/src/img/vihar_watermark.png" alt=""/>
+                     </div>
+                     
+                     <t t-set="utc_dt" t-value="o.vihar_date_time" />
+                     <t t-set="ist_dt" t-value="utc_dt + datetime.timedelta(hours=5, minutes=30)" />
+                     <t t-set="start_ist" t-value="ist_dt.replace(hour=0, minute=0, second=0, microsecond=0)" />
+                     <t t-set="end_ist" t-value="ist_dt.replace(hour=23, minute=59, second=59, microsecond=999999)" />
+                     <t t-set="start_utc" t-value="start_ist - datetime.timedelta(hours=5, minutes=30)" />
+                     <t t-set="end_utc" t-value="end_ist - datetime.timedelta(hours=5, minutes=30)" />
+                     <t t-set="all_routes" t-value="env['ai.vihar.route'].sudo().search([('vihar_date_time', '&gt;=', start_utc), ('vihar_date_time', '&lt;=', end_utc)], order='vihar_date_time asc')" />
+
+                     <div class="header-section">
+                           <div class="logo-cell">
+                              <img src="/ai_vihar/static/src/img/vihar_watermark.png"/>
+                           </div>
+                           <div class="header-content">
+                              <div class="title-line1">VIHAR POLICE SURAKSHA - DAILY SUMMARY</div>
+                              <div class="header-date-row">
+                                 <div class="header-date">
+                                       Date: <span t-esc="start_ist.strftime('%d/%m/%Y')"/>
+                                 </div>
+                              </div>
+                           </div>
+                     </div>
+
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th style="width: 5%;">SR. NO.</th>
+                              <th style="width: 8%;">CODE NO.</th>
+                              <th style="width: 8%;">LETTER NO.</th>
+                              <th style="width: 24%;">SAINT NAME</th> 
+                              <th style="width: 10%;">FROM</th>
+                              <th style="width: 10%;">TO</th>
+                              <th style="width: 8%;">TIME</th>
+                              <th style="width: 15%;">DISTRICT INCHARGE</th>
+                              <th style="width: 10%;">SEVAK DETAILS</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <t t-foreach="all_routes" t-as="entry">
+                              <tr>
+                                 <td class="text-center"><t t-esc="entry_index + 1"/></td>
+                                 <td class="text-center"><t t-esc="entry.vihar_id.code.code"/></td>
+                                 <td class="text-center"><t t-esc="entry.vihar_id.letter_no or '-'"/></td>
+                                 <td><span class="highlight-name"><t t-esc="entry.vihar_id.code.name_en"/></span></td>
+                                 <td><t t-esc="entry.from_location_id.name_en"/></td>
+                                 <td><t t-esc="entry.to_location_id.name_en"/></td>
+                                 <td class="text-center"><t t-esc="entry.vihar_time_ist or '-'"/></td>
+                                 <td style="font-size: 10px; line-height: 1.2; width: 15%; vertical-align: top;">
+                                    <t t-if="entry.district_incharge_info_en">
+                                       <t t-foreach="entry.district_incharge_info_en.split('/')" t-as="incharge">
+                                             <div style="display: block; margin-bottom: 2px;">
+                                                <t t-esc="incharge.strip()"/>
+                                             </div>
+                                       </t>
+                                    </t>
+                                    <t t-else="">
+                                       <span>-</span>
+                                    </t>
+                                 </td>
+                                    <td style="font-size: 11px;">
+                                    <t t-esc="entry.vihar_id.sevak_name"/> 
+                                    <t t-if="entry.vihar_id.contact_number">(<t t-esc="entry.vihar_id.contact_number"/>)</t>
+                                 </td>
+                              </tr>
+                           </t>
+                        </tbody>
+                     </table>
+                     <div class="vps-signature">
+                           <p class="mb-0"><strong>Regards,</strong></p>
+                           <p class="mb-0"><strong>Team VPS</strong></p>
+                     </div>
+                  </div>
+               </t>
+         </t>
+      </t>
+   </template>
+
+   <!-- Gujarati Summary Report -->
+   <template id="pdf_template_report_gujarati">
+      <t t-call="web.html_container">
+         <t t-call="web.basic_layout">
+            <style>
+               body {
+                  font-family: "Noto Serif Gujarati", serif !important;
+                  font-size: 16px;
+                  line-height: 1.5;
+               }
+               table, tr, td, th, span, div, p {
+                  font-family: "Noto Serif Gujarati";
+               }
+               .indic {
+                  unicode-bidi: embed;
+                  word-break: keep-all; white-space: normal;
+               }
+               .header-section { display: table; width: 100%; border-bottom: 3px double #000; padding-bottom: 5px; margin-bottom: 8px; }
+               .logo-cell { display: table-cell; vertical-align: middle; width: 25%; }
+               .logo-cell img { height: 200px; width: auto; opacity: 1 !important; }
+               .header-content { display: table-cell; vertical-align: middle; width: 75%; text-align: left; padding-left: 20px; }
+               .title-line1 { font-size: 36px; color: #1a73e8; font-weight: 900; margin: 0; }
+               .header-date-row { display: table; width: 100%; border-top: 1px solid #ddd; padding-top: 5px; margin-top: 5px; }
+               .header-date { display: table-cell; font-size: 20px; font-weight: bold; text-align: right; width: 100%; }
+               
+               .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+               .table th, .table td { border: 1px solid #000 !important; padding: 5px; vertical-align: middle; }
+               .table th { background-color: #f1f1f1 !important; font-weight: bold; font-size: 14px; text-transform: uppercase; text-align: center; }
+               .highlight-name { color: #03a9f4; font-weight: bold; }
+               .vps-signature { position: absolute; bottom: 5mm; right: 10mm; width: 100%; text-align: right; font-size: 20px; line-height: 1.2; z-index: 1000; }
+               .page-bg img {
+                  position: absolute; top: 50%; left: 50%; width: 800px; height: 800px;
+                  margin-top: -200px; margin-left: -400px; opacity: 0.35; z-index: -1000; pointer-events: none;
+               }
+            </style>
+            <t t-foreach="docs" t-as="o" t-index="doc_idx">
+               <div class="position-relative" style="padding: 5px 10px; margin: 0; min-height: 270mm; position: relative;">
+                  <div class="page-bg">
+                     <img src="/ai_vihar/static/src/img/vihar_watermark.png" alt=""/>
+                  </div>
+                  
+                  <t t-set="utc_dt" t-value="o.vihar_date_time" />
+                  <t t-set="ist_dt" t-value="utc_dt + datetime.timedelta(hours=5, minutes=30)" />
+                  <t t-set="start_ist" t-value="ist_dt.replace(hour=0, minute=0, second=0, microsecond=0)" />
+                  <t t-set="end_ist" t-value="ist_dt.replace(hour=23, minute=59, second=59, microsecond=999999)" />
+                  <t t-set="start_utc" t-value="start_ist - datetime.timedelta(hours=5, minutes=30)" />
+                  <t t-set="end_utc" t-value="end_ist - datetime.timedelta(hours=5, minutes=30)" />
+                  <t t-set="all_routes" t-value="env['ai.vihar.route'].sudo().search([('vihar_date_time', '&gt;=', start_utc), ('vihar_date_time', '&lt;=', end_utc)], order='vihar_date_time asc')" />
+
+                  <div class="header-section">
+                     <div class="logo-cell">
+                        <img src="/ai_vihar/static/src/img/vihar_watermark.png"/>
+                     </div>
+                     <div class="header-content">
+                        <div class="title-line1">VIHAR POLICE SURAKSHA - DAILY SUMMARY</div>
+                        <div class="header-date-row">
+                           <div class="header-date">
+                              Date: <span t-esc="start_ist.strftime('%d/%m/%Y')"/>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <table class="table">
+                     <thead>
+                        <tr>
+                           <th style="width: 5%;">SR. NO.</th>
+                           <th style="width: 8%;">CODE NO.</th>
+                           <th style="width: 8%;">LETTER NO.</th>
+                           <th style="width: 24%;">SAINT NAME</th> 
+                           <th style="width: 8%;">FROM</th>
+                           <th style="width: 7%;">TO</th>
+                           <th style="width: 8%;">TIME</th>
+                           <th style="width: 15%;">DISTRICT INCHARGE</th>
+                           <th style="width: 10%;">SEVAK DETAILS</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <t t-foreach="all_routes" t-as="entry">
+                           <tr>
+                              <td class="text-center">
+                                 <t t-esc="entry_index + 1"/>
+                              </td>
+                              
+                              <td class="text-center">
+                                 <t t-esc="entry.vihar_id.code.code"/>
+                              </td>
+                              
+                              <td class="text-center">
+                                 <t t-esc="entry.vihar_id.letter_no or '-'"/>
+                              </td>
+                              
+                              <td>
+                                 <span class="highlight-name">
+                                    <t t-esc="entry.vihar_id.code.name_gu"/>
+                                 </span>
+                              </td>
+                              <td><t t-esc="entry.from_location_id.name_gu"/></td>
+                              <td><t t-esc="entry.to_location_id.name_gu"/></td>
+                              <td class="text-center"><t t-esc="entry.vihar_time_ist or '-'"/></td>
+                              
+                              <td style="font-size: 10px; line-height: 1.2; width: 15%; vertical-align: top;">
+                                    <t t-if="entry.district_incharge_info_gu">
+                                       <t t-foreach="entry.district_incharge_info_gu.split('/')" t-as="incharge">
+                                             <div style="display: block; margin-bottom: 2px;">
+                                                <t t-esc="incharge.strip()"/>
+                                             </div>
+                                       </t>
+                                    </t>
+                                    <t t-else="">
+                                       <span>-</span>
+                                    </t>
+                              </td>
+                              
+                              <td style="font-size: 11px;">
+                                 <t t-esc="entry.vihar_id.sevak_name"/> 
+                                 <t t-if="entry.vihar_id.contact_number">
+                                    (<t t-esc="entry.vihar_id.contact_number"/>)
+                                 </t>
+                              </td>
+                           </tr>
+                        </t>
+                     </tbody>
+                  </table>
+                  <div class="vps-signature">
+                     <p class="mb-0"><strong>Regards,</strong></p>
+                     <p class="mb-0"><strong>Team VPS</strong></p>
+                  </div>
+               </div>
+            </t>
+         </t>
+      </t>
+   </template>
+
+   <!-- Hindi Summary Report -->
+   <template id="pdf_template_report_hindi">
+      <t t-call="web.html_container">
+         <t t-call="web.basic_layout">
+            <style>
+              html,
+               body,
+               div,
+               span,
+               p,
+               td,
+               th,
+               table,
+               tr {
+                  font-family: 'Noto Sans Devanagari' !important;
+               }
+
+               body {
+                  font-size: 16px;
+                  color: #333;
+                  line-height: 1.4;
+               }
+
+
+
+                /* Header Layout */
+
+               .header-section { display: table; width: 100%; border-bottom: 3px double #000; padding-bottom: 5px; margin-bottom: 8px; }
+               .logo-cell { display: table-cell; vertical-align: middle; width: 25%; }
+               .logo-cell img { height: 200px; width: auto; opacity: 1 !important; filter: brightness(0.6) contrast(1.2);}
+               .header-content { display: table-cell; vertical-align: middle; width: 75%; text-align: left; padding-left: 20px; }
+               .title-line1 { font-size: 36px; color: #1a73e8; font-weight: 900; margin: 0; }
+               .header-date-row { display: table; width: 100%; border-top: 1px solid #ddd; padding-top: 5px; margin-top: 5px; }
+               .header-date { display: table-cell; font-size: 20px; font-weight: bold; text-align: right; width: 100%; }
+               .header-title h1 { color: #1a73e8; font-size: 36px; font-weight: 800; margin: 0; }
+               
+               .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+               .table th, .table td { border: 1px solid #000 !important; padding: 5px; vertical-align: middle; }
+               .table th { background-color: #f1f1f1 !important; font-weight: bold; font-size: 15px; text-transform: uppercase; text-align: center; }
+               .highlight-name { color: #03a9f4; font-weight: bold; }
+               .vps-signature { position: absolute; bottom: 5mm; right: 10mm; width: 100%; text-align: right; font-size: 20px; line-height: 1.2; z-index: 1000; }
+                .page-bg img {
+                  position: absolute; top: 50%; left: 50%; width: 800px; height: 800px;
+                  margin-top: -200px; margin-left: -400px; opacity: 0.35; z-index: -1000; pointer-events: none;
+               }
+            </style>
+            <t t-foreach="docs" t-as="o" t-index="doc_idx">
+               <div class="position-relative" style="padding: 5px 10px; margin: 0; min-height: 270mm; position: relative;">
+                  <div class="page-bg">
+                     <img src="/ai_vihar/static/src/img/vihar_watermark.png" alt=""/>
+                  </div>
+                  <t t-set="utc_dt" t-value="o.vihar_date_time" />
+                  <t t-set="ist_dt" t-value="utc_dt + datetime.timedelta(hours=5, minutes=30)" />
+                  <t t-set="start_ist" t-value="ist_dt.replace(hour=0, minute=0, second=0, microsecond=0)" />
+                  <t t-set="end_ist" t-value="ist_dt.replace(hour=23, minute=59, second=59, microsecond=999999)" />
+                  <t t-set="start_utc" t-value="start_ist - datetime.timedelta(hours=5, minutes=30)" />
+                  <t t-set="end_utc" t-value="end_ist - datetime.timedelta(hours=5, minutes=30)" />
+                  <t t-set="all_routes" t-value="env['ai.vihar.route'].sudo().search([('vihar_date_time', '&gt;=', start_utc), ('vihar_date_time', '&lt;=', end_utc)], order='vihar_date_time asc')" />
+
+                  <div class="header-section">
+                     <div class="logo-cell">
+                        <img src="/ai_vihar/static/src/img/vihar_watermark.png"/>
+                     </div>
+                     <div class="header-content">
+                        <div class="title-line1">VIHAR POLICE SURAKSHA - DAILY SUMMARY</div>
+                        <div class="header-date-row">
+                           <div class="header-date">
+                              Date: <span t-esc="start_ist.strftime('%d/%m/%Y')"/>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <table class="table">
+                  <thead>
+                     <tr>
+                        <th style="width: 5%;">SR. NO.</th>
+                        <th style="width: 8%;">CODE NO.</th>
+                        <th style="width: 8%;">LETTER NO.</th>
+                        <th style="width: 24%;">SAINT NAME</th> 
+                        <th style="width: 10%;">FROM</th>
+                        <th style="width: 10%;">TO</th>
+                        <th style="width: 8%;">TIME</th>
+                        <th style="width: 15%;">DISTRICT INCHARGE</th>
+                        <th style="width: 10%;">SEVAK DETAILS</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <t t-foreach="all_routes" t-as="entry">
+                        <tr>
+                           <td class="text-center">
+                              <t t-esc="entry_index + 1"/>
+                           </td>
+                           
+                           <td class="text-center">
+                              <t t-esc="entry.vihar_id.code.code"/>
+                           </td>
+                           
+                           <td class="text-center">
+                              <t t-esc="entry.vihar_id.letter_no or '-'"/>
+                           </td>
+                           
+                           <td>
+                              <span class="highlight-name">
+                                 <t t-esc="entry.vihar_id.code.name_hi"/>
+                              </span>
+                           </td>
+                           
+                           <td><t t-esc="entry.from_location_id.name_hi"/></td>
+                           <td><t t-esc="entry.to_location_id.name_hi"/></td>
+                           
+                           <td class="text-center"><t t-esc="entry.vihar_time_ist or '-'"/></td>
+                           
+                           <td style="font-size: 10px; line-height: 1.2; width: 15%; vertical-align: top;">
+                              <t t-if="entry.district_incharge_info_hi">
+                                    <t t-foreach="entry.district_incharge_info_hi.split('/')" t-as="incharge">
+                                          <div style="display: block; margin-bottom: 2px;">
+                                             <t t-esc="incharge.strip()"/>
+                                          </div>
+                                       </t>
+                                    </t>
+                              <t t-else="">
+                                 <span>-</span>
+                              </t>
+                           </td>
+                           
+                           <td style="font-size: 11px;">
+                              <t t-esc="entry.vihar_id.sevak_name"/> 
+                              <t t-if="entry.vihar_id.contact_number">
+                                 (<t t-esc="entry.vihar_id.contact_number"/>)
+                              </t>
+                           </td>
+                        </tr>
+                     </t>
+                  </tbody>
+               </table>
+                  <div class="vps-signature">
+                     <p class="mb-0"><strong>Regards,</strong></p>
+                     <p class="mb-0"><strong>Team VPS</strong></p>
+                  </div>
+               </div>
+            </t>
+         </t>
+      </t>
+   </template>
+</odoo>
